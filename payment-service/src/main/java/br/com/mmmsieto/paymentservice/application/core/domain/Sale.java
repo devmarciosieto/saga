@@ -1,6 +1,7 @@
-package br.com.mmmsieto.paymentservice.application.core.domain.domain;
+package br.com.mmmsieto.paymentservice.application.core.domain;
 
-import br.com.mmmsieto.paymentservice.application.core.domain.domain.enums.SaleStatus;
+
+import br.com.mmmsieto.paymentservice.application.core.domain.enums.SaleStatus;
 
 import java.math.BigDecimal;
 

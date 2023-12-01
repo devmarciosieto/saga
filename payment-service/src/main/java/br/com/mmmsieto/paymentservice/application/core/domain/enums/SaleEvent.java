@@ -1,4 +1,4 @@
-package br.com.mmmsieto.paymentservice.application.core.domain.domain.enums;
+package br.com.mmmsieto.paymentservice.application.core.domain.enums;
 
 public enum SaleEvent {
 
