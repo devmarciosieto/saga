@@ -1,4 +1,9 @@
 package br.com.mmmsieto.paymentservice.application.ports.out;
 
-public class SavePaymentOutputPort {
+import br.com.mmmsieto.paymentservice.application.core.domain.Payment;
+
+public interface SavePaymentOutputPort {
+
+    void save(Payment payment);
+
 }
