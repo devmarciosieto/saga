@@ -1,11 +1,12 @@
 package br.com.mmmsieto.inventoryservice.application.core.usecase;
 
 import br.com.mmmsieto.inventoryservice.application.core.domain.Sale;
+import br.com.mmmsieto.inventoryservice.application.ports.in.DebitInventoryInputPort;
 import br.com.mmmsieto.inventoryservice.application.ports.in.FindInventoryByProductIdInputPort;
 import br.com.mmmsieto.inventoryservice.application.ports.out.SendUpdatedInventoryOutputProt;
 import br.com.mmmsieto.inventoryservice.application.ports.out.UpdateInventoryOutputPort;
 
-public class DebitInventoryUseCase {
+public class DebitInventoryUseCase implements DebitInventoryInputPort {
 
     private final FindInventoryByProductIdInputPort findInventoryByProductIdInputPort;
 
@@ -22,6 +23,7 @@ public class DebitInventoryUseCase {
         this.sendUpdatedInventoryOutputProt = sendUpdatedInventoryOutputProt;
     }
 
+    @Override
     public void debit(Sale sale) {
         var inventory = findInventoryByProductIdInputPort.find(sale.getProductId());
         if (inventory.getQuantity() < sale.getQuantity()) {
