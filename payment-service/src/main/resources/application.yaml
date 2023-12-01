@@ -1,9 +1,9 @@
 server:
-  port: 8081
+  port: 8083
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=sale_service_db
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=payment_service_db
     username: postgres
     password: root
   jpa:
