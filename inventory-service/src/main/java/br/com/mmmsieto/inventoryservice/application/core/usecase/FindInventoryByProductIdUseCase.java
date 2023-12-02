@@ -6,15 +6,17 @@ import br.com.mmmsieto.inventoryservice.application.ports.out.FindInventoryByPro
 
 public class FindInventoryByProductIdUseCase implements FindInventoryByProductIdInputPort {
 
-    private final FindInventoryByProductIdOutputPort outputPort;
+    private final FindInventoryByProductIdOutputPort findInventoryByProductIdOutputPort;
 
-    public FindInventoryByProductIdUseCase(FindInventoryByProductIdOutputPort outputPort) {
-        this.outputPort = outputPort;
+    public FindInventoryByProductIdUseCase(
+            FindInventoryByProductIdOutputPort findInventoryByProductIdOutputPort
+    ) {
+        this.findInventoryByProductIdOutputPort = findInventoryByProductIdOutputPort;
     }
 
     @Override
     public Inventory find(Long productId) {
-        return outputPort.find(productId).orElseThrow(() -> new RuntimeException("Inventory not found"));
+        return findInventoryByProductIdOutputPort.find(productId).orElseThrow(() -> new RuntimeException("Inventory not found"));
     }
 
 }

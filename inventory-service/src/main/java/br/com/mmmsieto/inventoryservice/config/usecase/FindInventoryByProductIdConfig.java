@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Configuration;
 public class FindInventoryByProductIdConfig {
 
     @Bean
-    public FindInventoryByProductIdUseCase fndInventoryByProductIdUseCase(FindInventoryByProductIdAdapter findInventoryByProductIdAdapter) {
+    public FindInventoryByProductIdUseCase findInventoryByProductIdUseCase(
+            FindInventoryByProductIdAdapter findInventoryByProductIdAdapter
+    ) {
         return new FindInventoryByProductIdUseCase(findInventoryByProductIdAdapter);
     }
 

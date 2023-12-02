@@ -17,7 +17,7 @@ public class CancelSaleConsumer {
         this.cancelSaleInputPort = cancelSaleInputPort;
     }
 
-    @KafkaListener(topics = "${kafka.topic.cancel-sale}", groupId = "${kafka.group-id}")
+    @KafkaListener(topics = "tp-saga-sale", groupId = "sale-cancel")
     public void receive(SaleMessage saleMessage) {
         log.info("received saleId='{}'", saleMessage);
 

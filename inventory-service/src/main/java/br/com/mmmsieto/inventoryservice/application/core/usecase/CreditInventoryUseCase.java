@@ -4,22 +4,23 @@ import br.com.mmmsieto.inventoryservice.application.core.domain.Sale;
 import br.com.mmmsieto.inventoryservice.application.core.domain.enums.SaleEvent;
 import br.com.mmmsieto.inventoryservice.application.ports.in.CreditInventoryInputPort;
 import br.com.mmmsieto.inventoryservice.application.ports.in.FindInventoryByProductIdInputPort;
-import br.com.mmmsieto.inventoryservice.application.ports.out.SendToKafkaOutputProt;
+import br.com.mmmsieto.inventoryservice.application.ports.out.SendToKafkaOutputPort;
 import br.com.mmmsieto.inventoryservice.application.ports.out.UpdateInventoryOutputPort;
 
 public class CreditInventoryUseCase implements CreditInventoryInputPort {
 
     private final FindInventoryByProductIdInputPort findInventoryByProductIdInputPort;
+
     private final UpdateInventoryOutputPort updateInventoryOutputPort;
 
-    private final SendToKafkaOutputProt sendToKafkaOutputProt;
+    private final SendToKafkaOutputPort sendToKafkaOutputPort;
 
     public CreditInventoryUseCase(FindInventoryByProductIdInputPort findInventoryByProductIdInputPort,
                                   UpdateInventoryOutputPort updateInventoryOutputPort,
-                                  SendToKafkaOutputProt sendToKafkaOutputProt) {
+                                  SendToKafkaOutputPort sendToKafkaOutputPort) {
         this.findInventoryByProductIdInputPort = findInventoryByProductIdInputPort;
         this.updateInventoryOutputPort = updateInventoryOutputPort;
-        this.sendToKafkaOutputProt = sendToKafkaOutputProt;
+        this.sendToKafkaOutputPort = sendToKafkaOutputPort;
     }
 
     @Override
@@ -27,7 +28,7 @@ public class CreditInventoryUseCase implements CreditInventoryInputPort {
         var inventory = findInventoryByProductIdInputPort.find(sale.getProductId());
         inventory.creditQuantity(sale.getQuantity());
         updateInventoryOutputPort.update(inventory);
-        sendToKafkaOutputProt.send(sale, SaleEvent.ROLLBACK_INVENTORY);
+        sendToKafkaOutputPort.send(sale, SaleEvent.ROLLBACK_INVENTORY);
     }
 
 

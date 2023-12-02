@@ -11,12 +11,12 @@ import org.springframework.context.annotation.Configuration;
 public class DebitInventoryConfig {
 
     @Bean
-    public DebitInventoryUseCase debitInventoryUseCase(FindInventoryByProductIdUseCase findInventoryByProductIdUseCase,
-                                                       UpdateInventoryAdapter updateInventoryAdapter,
-                                                       SendToKafkaAdapter sendToKafkaAdapter) {
-        return new DebitInventoryUseCase(findInventoryByProductIdUseCase,
-                updateInventoryAdapter,
-                sendToKafkaAdapter);
+    public DebitInventoryUseCase debitInventoryUseCase(
+            FindInventoryByProductIdUseCase findInventoryByProductIdUseCase,
+            UpdateInventoryAdapter updateInventoryAdapter,
+            SendToKafkaAdapter sendToKafkaAdapter
+    ) {
+        return new DebitInventoryUseCase(findInventoryByProductIdUseCase, updateInventoryAdapter, sendToKafkaAdapter);
     }
 
 }

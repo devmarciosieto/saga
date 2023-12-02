@@ -11,9 +11,11 @@ import org.springframework.context.annotation.Configuration;
 public class CreditInventoryUseCaseConfig {
 
     @Bean
-    public CreditInventoryUseCase creditInventoryUseCase(FindInventoryByProductIdUseCase findInventoryByProductIdUseCase,
-                                                         UpdateInventoryAdapter updateInventoryAdapter,
-                                                         SendToKafkaAdapter sendToKafkaAdapter) {
+    public CreditInventoryUseCase creditInventoryUseCase(
+            FindInventoryByProductIdUseCase findInventoryByProductIdUseCase,
+            UpdateInventoryAdapter updateInventoryAdapter,
+            SendToKafkaAdapter sendToKafkaAdapter
+    ) {
         return new CreditInventoryUseCase(findInventoryByProductIdUseCase, updateInventoryAdapter, sendToKafkaAdapter);
     }
 

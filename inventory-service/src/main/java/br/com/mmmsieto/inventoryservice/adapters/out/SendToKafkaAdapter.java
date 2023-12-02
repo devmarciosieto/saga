@@ -3,12 +3,12 @@ package br.com.mmmsieto.inventoryservice.adapters.out;
 import br.com.mmmsieto.inventoryservice.adapters.out.message.SaleMessage;
 import br.com.mmmsieto.inventoryservice.application.core.domain.Sale;
 import br.com.mmmsieto.inventoryservice.application.core.domain.enums.SaleEvent;
-import br.com.mmmsieto.inventoryservice.application.ports.out.SendToKafkaOutputProt;
+import br.com.mmmsieto.inventoryservice.application.ports.out.SendToKafkaOutputPort;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SendToKafkaAdapter implements SendToKafkaOutputProt {
+public class SendToKafkaAdapter implements SendToKafkaOutputPort {
 
     private final KafkaTemplate<String, SaleMessage> kafkaTemplate;
 
