@@ -1,6 +1,6 @@
 package br.com.mmmsieto.inventoryservice.config.usecase;
 
-import br.com.mmmsieto.inventoryservice.adapters.out.SendUpdatedInventoryAdapter;
+import br.com.mmmsieto.inventoryservice.adapters.out.SendToKafkaAdapter;
 import br.com.mmmsieto.inventoryservice.adapters.out.UpdateInventoryAdapter;
 import br.com.mmmsieto.inventoryservice.application.core.usecase.DebitInventoryUseCase;
 import br.com.mmmsieto.inventoryservice.application.core.usecase.FindInventoryByProductIdUseCase;
@@ -13,10 +13,10 @@ public class DebitInventoryConfig {
     @Bean
     public DebitInventoryUseCase debitInventoryUseCase(FindInventoryByProductIdUseCase findInventoryByProductIdUseCase,
                                                        UpdateInventoryAdapter updateInventoryAdapter,
-                                                       SendUpdatedInventoryAdapter sendUpdatedInventoryAdapter) {
+                                                       SendToKafkaAdapter sendToKafkaAdapter) {
         return new DebitInventoryUseCase(findInventoryByProductIdUseCase,
                 updateInventoryAdapter,
-                sendUpdatedInventoryAdapter);
+                sendToKafkaAdapter);
     }
 
 }
