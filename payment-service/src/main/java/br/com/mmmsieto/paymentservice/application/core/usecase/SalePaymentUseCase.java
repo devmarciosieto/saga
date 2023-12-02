@@ -4,11 +4,12 @@ import br.com.mmmsieto.paymentservice.application.core.domain.Payment;
 import br.com.mmmsieto.paymentservice.application.core.domain.Sale;
 import br.com.mmmsieto.paymentservice.application.core.domain.enums.SaleEvent;
 import br.com.mmmsieto.paymentservice.application.ports.in.FindUserByIdInputPort;
+import br.com.mmmsieto.paymentservice.application.ports.in.SalePaymentInputPort;
 import br.com.mmmsieto.paymentservice.application.ports.out.SavePaymentOutputPort;
 import br.com.mmmsieto.paymentservice.application.ports.out.SendValidadedPaymentOutputPort;
 import br.com.mmmsieto.paymentservice.application.ports.out.UpdateUserOutputPort;
 
-public class SalePaymentUseCase {
+public class SalePaymentUseCase implements SalePaymentInputPort {
 
     private final FindUserByIdInputPort findUserByIdInputPort;
     private final UpdateUserOutputPort updateUserOutputPort;
@@ -17,14 +18,16 @@ public class SalePaymentUseCase {
 
     public SalePaymentUseCase(FindUserByIdInputPort findUserByIdInputPort,
                               UpdateUserOutputPort updateUserOutputPort,
-                              SavePaymentOutputPort savePaymentOutputPort, SendValidadedPaymentOutputPort sendValidadedPaymentOutputPort) {
+                              SavePaymentOutputPort savePaymentOutputPort,
+                              SendValidadedPaymentOutputPort sendValidadedPaymentOutputPort) {
         this.findUserByIdInputPort = findUserByIdInputPort;
         this.updateUserOutputPort = updateUserOutputPort;
         this.savePaymentOutputPort = savePaymentOutputPort;
         this.sendValidadedPaymentOutputPort = sendValidadedPaymentOutputPort;
     }
 
-    public void payumenty(Sale sale) {
+    @Override
+    public void payment(Sale sale) {
 
         var user = findUserByIdInputPort.find(sale.getUserId());
 
