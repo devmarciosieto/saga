@@ -1,7 +1,7 @@
 package br.com.mmmsieto.paymentservice.config.usecase;
 
 import br.com.mmmsieto.paymentservice.adapters.out.SavePaymentAdapter;
-import br.com.mmmsieto.paymentservice.adapters.out.SendValidatedPaymentAdapter;
+import br.com.mmmsieto.paymentservice.adapters.out.SendToKafkaAdapter;
 import br.com.mmmsieto.paymentservice.adapters.out.UpdateUserAdapter;
 import br.com.mmmsieto.paymentservice.application.core.usecase.FindUserByIdUseCase;
 import br.com.mmmsieto.paymentservice.application.core.usecase.SalePaymentUseCase;
@@ -15,11 +15,11 @@ public class SalePaymentConfig {
     public SalePaymentUseCase salePaymentUseCase(FindUserByIdUseCase findUserByIdUseCase,
                                                  UpdateUserAdapter updateUserAdapter,
                                                  SavePaymentAdapter savePaymentAdapter,
-                                                 SendValidatedPaymentAdapter sendValidatedPaymentAdapter) {
+                                                 SendToKafkaAdapter sendToKafkaAdapter) {
         return new SalePaymentUseCase(findUserByIdUseCase,
                 updateUserAdapter,
                 savePaymentAdapter,
-                sendValidatedPaymentAdapter);
+                sendToKafkaAdapter);
     }
 
 }

@@ -6,7 +6,7 @@ import br.com.mmmsieto.paymentservice.application.core.domain.enums.SaleEvent;
 import br.com.mmmsieto.paymentservice.application.ports.in.FindUserByIdInputPort;
 import br.com.mmmsieto.paymentservice.application.ports.in.SalePaymentInputPort;
 import br.com.mmmsieto.paymentservice.application.ports.out.SavePaymentOutputPort;
-import br.com.mmmsieto.paymentservice.application.ports.out.SendValidadedPaymentOutputPort;
+import br.com.mmmsieto.paymentservice.application.ports.out.SendToKafkaOutputPort;
 import br.com.mmmsieto.paymentservice.application.ports.out.UpdateUserOutputPort;
 
 public class SalePaymentUseCase implements SalePaymentInputPort {
@@ -14,31 +14,38 @@ public class SalePaymentUseCase implements SalePaymentInputPort {
     private final FindUserByIdInputPort findUserByIdInputPort;
     private final UpdateUserOutputPort updateUserOutputPort;
     private final SavePaymentOutputPort savePaymentOutputPort;
-    private final SendValidadedPaymentOutputPort sendValidadedPaymentOutputPort;
+    private final SendToKafkaOutputPort sendToKafkaOutputPort;
 
     public SalePaymentUseCase(FindUserByIdInputPort findUserByIdInputPort,
                               UpdateUserOutputPort updateUserOutputPort,
                               SavePaymentOutputPort savePaymentOutputPort,
-                              SendValidadedPaymentOutputPort sendValidadedPaymentOutputPort) {
+                              SendToKafkaOutputPort sendToKafkaOutputPort) {
         this.findUserByIdInputPort = findUserByIdInputPort;
         this.updateUserOutputPort = updateUserOutputPort;
         this.savePaymentOutputPort = savePaymentOutputPort;
-        this.sendValidadedPaymentOutputPort = sendValidadedPaymentOutputPort;
+        this.sendToKafkaOutputPort = sendToKafkaOutputPort;
     }
 
     @Override
     public void payment(Sale sale) {
 
-        var user = findUserByIdInputPort.find(sale.getUserId());
+        try {
+            var user = findUserByIdInputPort.find(sale.getUserId());
 
-        if (user.getBalance().compareTo(sale.getValue()) < 0) {
-            throw new RuntimeException("Insufficient balance");
+            if (user.getBalance().compareTo(sale.getValue()) < 0) {
+                throw new RuntimeException("Insufficient balance");
+            }
+
+            user.debitBalance(sale.getValue());
+            updateUserOutputPort.update(user);
+            savePaymentOutputPort.save(createPayment(sale));
+            sendToKafkaOutputPort.send(sale, SaleEvent.VALIDATED_PAYMENT);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            sendToKafkaOutputPort.send(sale, SaleEvent.FAILED_PAYMENT);
         }
 
-        user.debitBalance(sale.getValue());
-        updateUserOutputPort.update(user);
-        savePaymentOutputPort.save(createPayment(sale));
-        sendValidadedPaymentOutputPort.send(sale, SaleEvent.VALIDATED_PAYMENT);
+
 
     }
 
