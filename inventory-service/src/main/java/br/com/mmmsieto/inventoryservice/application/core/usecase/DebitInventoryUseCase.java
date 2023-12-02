@@ -26,13 +26,20 @@ public class DebitInventoryUseCase implements DebitInventoryInputPort {
 
     @Override
     public void debit(Sale sale) {
-        var inventory = findInventoryByProductIdInputPort.find(sale.getProductId());
-        if (inventory.getQuantity() < sale.getQuantity()) {
-            throw new RuntimeException("Insufficient inventory");
+
+        try {
+            var inventory = findInventoryByProductIdInputPort.find(sale.getProductId());
+            if (inventory.getQuantity() < sale.getQuantity()) {
+                throw new RuntimeException("Insufficient inventory");
+            }
+            inventory.debitQuantity(sale.getQuantity());
+            updateInventoryOutputPort.update(inventory);
+            sendToKafkaOutputProt.send(sale, SaleEvent.UPDATED_INVENTORY);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            sendToKafkaOutputProt.send(sale, SaleEvent.ROLLBACK_INVENTORY);
         }
-        inventory.debitQuantity(sale.getQuantity());
-        updateInventoryOutputPort.update(inventory);
-        sendToKafkaOutputProt.send(sale, SaleEvent.UPDATED_INVENTORY);
+
     }
 
 }
