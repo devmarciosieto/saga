@@ -4,7 +4,7 @@ import br.com.mmmsieto.saleservice.adapters.out.repository.entity.SaleEntity;
 import br.com.mmmsieto.saleservice.application.core.domain.Sale;
 import br.com.mmmsieto.saleservice.application.core.domain.enums.SaleStatus;
 
-public interface SaleConvert {
+public interface SaleMapper {
 
     static Sale toSale(SaleEntity saleEntity) {
         return new Sale(

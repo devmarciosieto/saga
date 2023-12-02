@@ -1,24 +1,28 @@
 package br.com.mmmsieto.saleservice.adapters.out;
 
+
 import br.com.mmmsieto.saleservice.adapters.out.repository.SaleRepository;
 import br.com.mmmsieto.saleservice.adapters.out.repository.convert.SaleMapper;
-import br.com.mmmsieto.saleservice.adapters.out.repository.convert.SaleEntityMapper;
 import br.com.mmmsieto.saleservice.application.core.domain.Sale;
-import br.com.mmmsieto.saleservice.application.ports.out.SaveSaleOutputPort;
+import br.com.mmmsieto.saleservice.application.ports.out.FindSaleByIdOutputPort;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
-public class SaveSaleAdapter implements SaveSaleOutputPort {
+public class FindSaleByAdapters implements FindSaleByIdOutputPort {
+
 
     private final SaleRepository saleRepository;
 
-    public SaveSaleAdapter(SaleRepository saleRepository) {
+    public FindSaleByAdapters(SaleRepository saleRepository) {
         this.saleRepository = saleRepository;
     }
 
     @Override
-    public Sale save(Sale sale) {
-        return SaleMapper.toSale(saleRepository.save(SaleEntityMapper.toEntity(sale)));
+    public Optional<Sale> find(Long id) {
+        var sale = saleRepository.findById(id);
+        return sale.map(SaleMapper::toSale);
     }
 
 }

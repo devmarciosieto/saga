@@ -3,7 +3,7 @@ package br.com.mmmsieto.saleservice.adapters.out.repository.convert;
 import br.com.mmmsieto.saleservice.adapters.out.repository.entity.SaleEntity;
 import br.com.mmmsieto.saleservice.application.core.domain.Sale;
 
-public interface SaleEntityConvert {
+public interface SaleEntityMapper {
 
     static SaleEntity toEntity(Sale sale) {
         return SaleEntity.builder()
