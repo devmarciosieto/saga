@@ -32,11 +32,11 @@ public class SalePaymentUseCase implements SalePaymentInputPort {
         try {
             var user = findUserByIdInputPort.find(sale.getUserId());
 
-            if (user.getBalance().compareTo(sale.getValue()) < 0) {
+            if (user.getBalance().compareTo(sale.getPrice()) < 0) {
                 throw new RuntimeException("Insufficient balance");
             }
 
-            user.debitBalance(sale.getValue());
+            user.debitBalance(sale.getPrice());
             updateUserOutputPort.update(user);
             savePaymentOutputPort.save(createPayment(sale));
             sendToKafkaOutputPort.send(sale, SaleEvent.VALIDATED_PAYMENT);
@@ -50,7 +50,7 @@ public class SalePaymentUseCase implements SalePaymentInputPort {
     }
 
     private Payment createPayment(Sale sale) {
-        return new Payment(null, sale.getUserId(), sale.getId(), sale.getValue());
+        return new Payment(null, sale.getUserId(), sale.getId(), sale.getPrice());
     }
 
 }

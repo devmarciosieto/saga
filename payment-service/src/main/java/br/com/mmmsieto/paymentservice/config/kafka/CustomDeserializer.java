@@ -18,7 +18,7 @@ public class CustomDeserializer implements Deserializer<SaleMessage> {
             }
             return objectMapper.readValue(new String(data, "UTF-8"), SaleMessage.class);
         } catch (Exception e) {
-            throw new SerializationException("Error when deserializing byte[] to SaleMessage");
+            throw new SerializationException("Error when deserializing byte[] to SaleMessage", e);
         }
     }
 

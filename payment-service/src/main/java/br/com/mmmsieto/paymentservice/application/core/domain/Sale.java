@@ -13,7 +13,7 @@ public class Sale {
 
     private Long userId;
 
-    private BigDecimal value;
+    private BigDecimal price;
 
     private SaleStatus status;
 
@@ -22,11 +22,11 @@ public class Sale {
     public Sale() {
     }
 
-    public Sale(Long id, Long productId, Long userId, BigDecimal value, SaleStatus status, Integer quantity) {
+    public Sale(Long id, Long productId, Long userId, BigDecimal price, SaleStatus status, Integer quantity) {
         this.id = id;
         this.productId = productId;
         this.userId = userId;
-        this.value = value;
+        this.price = price;
         this.status = status;
         this.quantity = quantity;
     }
@@ -55,12 +55,12 @@ public class Sale {
         this.userId = userId;
     }
 
-    public BigDecimal getValue() {
-        return value;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setValue(BigDecimal value) {
-        this.value = value;
+    public void setValue(BigDecimal price) {
+        this.price = price;
     }
 
     public SaleStatus getStatus() {

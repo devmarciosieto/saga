@@ -21,10 +21,10 @@ public class ReceiveSaleToPaymentConsumer {
     public void receive(SaleMessage saleMessage) {
         log.info("Sale received: {}", saleMessage);
 
-        if (SaleEvent.UPDATED_INVENTORY.equals(saleMessage.getSaleEvent())) {
-            log.info("Start Sale event: {}", saleMessage.getSaleEvent());
+        if (SaleEvent.UPDATED_INVENTORY.equals(saleMessage.getEvent())) {
+            log.info("Start Sale event: {}", saleMessage.getEvent());
             salePaymentInputPort.payment(saleMessage.getSale());
-            log.info("End Sale event: {}", saleMessage.getSaleEvent());
+            log.info("End Sale event: {}", saleMessage.getEvent());
         }
 
     }
