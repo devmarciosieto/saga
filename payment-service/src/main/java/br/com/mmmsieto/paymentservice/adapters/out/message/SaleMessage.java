@@ -16,6 +16,6 @@ public class SaleMessage {
 
     private Sale sale;
 
-    private SaleEvent saleEvent;
+    private SaleEvent event;
 
 }
