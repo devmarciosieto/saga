@@ -21,7 +21,7 @@ public class ReceiveSaleToCreditInventoryConsumer {
     public void receive(SaleMessage saleMessage) {
         log.info("Receive sale to credit inventory: {}", saleMessage);
 
-        if (SaleEvent.FAILED_PAYMENT.equals(saleMessage.getSaleEvent())) {
+        if (SaleEvent.FAILED_PAYMENT.equals(saleMessage.getEvent())) {
             log.info("Start Sale failed payment, compensating transaction: {}", saleMessage);
             creditInventoryInputPort.credit(saleMessage.getSale());
             log.info("End Sale failed payment, compensating transaction: {}", saleMessage);

@@ -24,3 +24,4 @@ public class CustomSerializer implements Serializer<SaleMessage> {
 }
 
 
+

@@ -22,7 +22,7 @@ public class ReceiveSaleToDebitInventoryConsumer {
 
         log.info("SaleMessage received: {}", saleMessage);
 
-        if(SaleEvent.CREATED_SALE.equals(saleMessage.getSaleEvent())) {
+        if(SaleEvent.CREATED_SALE.equals(saleMessage.getEvent())) {
             log.info("Start SaleEvent: {}", SaleEvent.CREATED_SALE);
 
             debitInventoryInputPort.debit(saleMessage.getSale());

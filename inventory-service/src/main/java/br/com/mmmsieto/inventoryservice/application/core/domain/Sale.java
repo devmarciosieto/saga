@@ -6,35 +6,41 @@ import java.math.BigDecimal;
 
 public class Sale {
 
-    private String id;
+    public Sale() {
+    }
+
+    public Sale(Long productId, Long userId, BigDecimal price, SaleStatus status, Integer quantity) {
+        this.productId = productId;
+        this.userId = userId;
+        this.price = price;
+        this.status = status;
+        this.quantity = quantity;
+    }
+
+    private Long id;
 
     private Long productId;
 
     private Long userId;
 
-    private BigDecimal value;
+    private BigDecimal price;
 
     private SaleStatus status;
 
     private Integer quantity;
 
-    public Sale() {
-    }
-
-    public Sale(String id, Long productId, Long userId, BigDecimal value, SaleStatus status, Integer quantity) {
-        this.id = id;
+    public Sale(Long productId, Long userId, BigDecimal price, Integer quantity) {
         this.productId = productId;
         this.userId = userId;
-        this.value = value;
-        this.status = status;
+        this.price = price;
         this.quantity = quantity;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -54,12 +60,12 @@ public class Sale {
         this.userId = userId;
     }
 
-    public BigDecimal getValue() {
-        return value;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setValue(BigDecimal value) {
-        this.value = value;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public SaleStatus getStatus() {
