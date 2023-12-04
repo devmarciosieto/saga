@@ -18,6 +18,7 @@ public class CancelSaleUseCase implements CancelSaleInputPort {
     @Override
     public void cancel(Sale sale) {
         var saleFound = findSaleByIdInputPort.find(sale.getId());
+        saleFound.cancel();
         saveSaleOutputPort.save(saleFound);
     }
 }

@@ -84,5 +84,9 @@ public class Sale {
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
+
+    public void cancel() {
+        this.status = SaleStatus.CANCELLED;
+    }
 }
 
