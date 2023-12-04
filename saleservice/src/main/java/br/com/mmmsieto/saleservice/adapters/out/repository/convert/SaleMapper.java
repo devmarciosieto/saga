@@ -8,9 +8,10 @@ public interface SaleMapper {
 
     static Sale toSale(SaleEntity saleEntity) {
         return new Sale(
+                saleEntity.getId(),
                 saleEntity.getProductId(),
                 saleEntity.getUserId(),
-                saleEntity.getPrice(),
+                saleEntity.getValue(),
                 SaleStatus.fromStatusId(saleEntity.getStatusId()),
                 saleEntity.getQuantity()
         );

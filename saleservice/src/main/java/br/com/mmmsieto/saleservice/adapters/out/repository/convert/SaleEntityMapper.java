@@ -10,7 +10,7 @@ public interface SaleEntityMapper {
                 .id(sale.getId())
                 .productId(sale.getProductId())
                 .userId(sale.getUserId())
-                .price(sale.getPrice())
+                .value(sale.getPrice())
                 .statusId(sale.getStatus().getStatusId())
                 .quantity(sale.getQuantity())
                 .build();

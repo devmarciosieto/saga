@@ -24,7 +24,7 @@ public class SaleEntity {
 
     private Long userId;
 
-    private BigDecimal price;
+    private BigDecimal value;
 
     private int statusId;
 

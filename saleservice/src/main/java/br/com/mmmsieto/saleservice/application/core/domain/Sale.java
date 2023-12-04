@@ -9,7 +9,8 @@ public class Sale {
     public Sale() {
     }
 
-    public Sale(Long productId, Long userId, BigDecimal price, SaleStatus status, Long quantity) {
+    public Sale(Long id,Long productId, Long userId, BigDecimal price, SaleStatus status, Long quantity) {
+        this.id = id;
         this.productId = productId;
         this.userId = userId;
         this.price = price;

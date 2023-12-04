@@ -23,7 +23,7 @@ public class ReceiveSaleToFinalizeConsumer {
 
         if (SaleEvent.VALIDATED_PAYMENT.equals(saleMessage.getEvent())) {
             log.info("Start Sale finalized: {}", saleMessage);
-
+            finalizeSaleInputPort.finalizeSale(saleMessage.getSale());
             log.info("End Sale finalized: {}", saleMessage);
         }
 
