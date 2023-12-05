@@ -21,7 +21,7 @@ public class CancelSaleConsumer {
     public void receive(SaleMessage saleMessage) {
         log.info("received saleId='{}'", saleMessage);
 
-        if(SaleEvent.ROLLBACK_INVENTORY.equals(saleMessage.getEvent())) {
+        if(SaleEvent.CANCELED_SALE.equals(saleMessage.getEvent())) {
             log.info("Start rollback inventory saleId='{}'", saleMessage);
             cancelSaleInputPort.cancel(saleMessage.getSale());
             log.info("End rollback inventory saleId='{}'", saleMessage);
