@@ -18,11 +18,11 @@ public class ReceiveSaleToCreditInventoryConsumer {
         this.creditInventoryInputPort = creditInventoryInputPort;
     }
 
-    @KafkaListener(topics = "tp-saga-sale", groupId = "inventory-credit")
+    @KafkaListener(topics = "tp-saga-inventory", groupId = "inventory-credit")
     public void receive(ConsumerRecord<String, SaleMessage> saleMessage) {
         log.info("Receive sale to credit inventory: {}", saleMessage);
 
-        if (SaleEvent.FAILED_PAYMENT.equals(saleMessage.value().getEvent())) {
+        if (SaleEvent.EXECUTE_ROLLBACK.equals(saleMessage.value().getEvent())) {
             log.info("Start Sale failed payment, compensating transaction: {}", saleMessage);
             creditInventoryInputPort.credit(saleMessage.value().getSale());
             log.info("End Sale failed payment, compensating transaction: {}", saleMessage);

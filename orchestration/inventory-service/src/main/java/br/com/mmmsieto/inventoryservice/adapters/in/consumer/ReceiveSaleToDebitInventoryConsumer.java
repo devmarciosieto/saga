@@ -17,17 +17,17 @@ public class ReceiveSaleToDebitInventoryConsumer {
         this.debitInventoryInputPort = debitInventoryInputPort;
     }
 
-    @KafkaListener(topics = "tp-saga-sale", groupId = "inventory-debit")
+    @KafkaListener(topics = "tp-saga-inventory", groupId = "inventory-debit")
     public void receive(SaleMessage saleMessage) {
 
         log.info("SaleMessage received: {}", saleMessage);
 
-        if(SaleEvent.CREATED_SALE.equals(saleMessage.getEvent())) {
-            log.info("Start SaleEvent: {}", SaleEvent.CREATED_SALE);
+        if(SaleEvent.PREPARE_INVENTORY.equals(saleMessage.getEvent())) {
+            log.info("Start SaleEvent: {}", SaleEvent.PREPARE_INVENTORY);
 
             debitInventoryInputPort.debit(saleMessage.getSale());
 
-            log.info("End SaleEvent: {}", SaleEvent.CREATED_SALE);
+            log.info("End SaleEvent: {}", SaleEvent.PREPARE_INVENTORY);
         }
 
     }
