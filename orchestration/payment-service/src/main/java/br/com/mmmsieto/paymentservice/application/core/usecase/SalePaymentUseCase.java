@@ -39,10 +39,10 @@ public class SalePaymentUseCase implements SalePaymentInputPort {
             user.debitBalance(sale.getPrice());
             updateUserOutputPort.update(user);
             savePaymentOutputPort.save(createPayment(sale));
-            sendToKafkaOutputPort.send(sale, SaleEvent.VALIDATED_PAYMENT);
+            sendToKafkaOutputPort.send(sale, SaleEvent.PAYMENT_EXECUTED);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            sendToKafkaOutputPort.send(sale, SaleEvent.FAILED_PAYMENT);
+            sendToKafkaOutputPort.send(sale, SaleEvent.PAYMENT_FAILED);
         }
 
 
