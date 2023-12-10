@@ -21,7 +21,7 @@ public class ReceiveSaleToFinalizeConsumer {
     public void receive(SaleMessage saleMessage) {
         log.info("Sale received to finalize: {}", saleMessage);
 
-        if (SaleEvent.FINALIZED_SALE.equals(saleMessage.getEvent())) {
+        if (SaleEvent.FINALIZE_SALE.equals(saleMessage.getEvent())) {
             log.info("Start Sale finalized: {}", saleMessage);
             finalizeSaleInputPort.finalizeSale(saleMessage.getSale());
             log.info("End Sale finalized: {}", saleMessage);

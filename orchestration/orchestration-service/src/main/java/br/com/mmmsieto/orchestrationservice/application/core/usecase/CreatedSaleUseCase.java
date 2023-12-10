@@ -16,13 +16,13 @@ public class CreatedSaleUseCase implements WorkflowInputPort {
     @Override
     public void execute(Sale sale) {
         System.out.println("start of stock separation");
-        sendSaleToTopicOutputPort.send(sale, SaleEvent.PREPARE_INVENTORY, "tp-saga- inventory");
+        sendSaleToTopicOutputPort.send(sale, SaleEvent.PREPARE_INVENTORY, "tp-saga-inventory");
         System.out.println("end of stock separation");
     }
 
     @Override
     public boolean isCalledByTheEvent(SaleEvent event) {
-        return SaleEvent.CREATE_SALE.equals(event);
+        return SaleEvent.CREATED_SALE.equals(event);
     }
 
 }
